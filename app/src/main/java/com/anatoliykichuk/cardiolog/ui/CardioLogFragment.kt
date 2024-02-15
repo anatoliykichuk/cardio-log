@@ -5,9 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import com.anatoliykichuk.cardiolog.R
+import androidx.recyclerview.widget.RecyclerView
 import com.anatoliykichuk.cardiolog.databinding.FragmentCardioLogBinding
+import com.anatoliykichuk.cardiolog.domain.CardioLog
+import com.google.android.material.snackbar.Snackbar
 
 class CardioLogFragment : Fragment() {
 
@@ -16,6 +17,9 @@ class CardioLogFragment : Fragment() {
     private val binding
         get() = _binding!!
 
+    private lateinit var cardioLogRecyclerView: RecyclerView
+    private lateinit var records: MutableList<CardioLog>
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -23,17 +27,52 @@ class CardioLogFragment : Fragment() {
 
         _binding = FragmentCardioLogBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        initView()
+        observeData()
+        initData()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun initView() {
+        cardioLogRecyclerView = binding.cardioLogRecyclerView
+        setFabOnClickListeners()
+    }
+
+    private fun observeData() {
+
+    }
+
+    private fun initData() {
+        //TODO("Инициализировать список")
+
+        records = mutableListOf()
+
+        cardioLogRecyclerView.adapter = CardioLogAdapter(records)
+        cardioLogRecyclerView.setHasFixedSize(true)
+    }
+
+    private fun setFabOnClickListeners() {
+        binding.addRecordFab.setOnClickListener { view ->
+            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show()
+        }
+
+        binding.removeRecordFab.setOnClickListener { view ->
+            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show()
+        }
+    }
+
+    companion object {
+        fun newInstance() = CardioLogFragment()
     }
 }
