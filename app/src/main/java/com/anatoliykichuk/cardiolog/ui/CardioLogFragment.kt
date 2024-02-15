@@ -56,4 +56,8 @@ class CardioLogFragment : Fragment() {
         cardioLogRecyclerView.adapter = CardioLogAdapter(records)
         cardioLogRecyclerView.setHasFixedSize(true)
     }
+
+    companion object {
+        fun newInstance() = CardioLogFragment()
+    }
 }
