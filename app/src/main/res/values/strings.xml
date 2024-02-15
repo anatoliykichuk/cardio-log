@@ -43,7 +43,7 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
-    <string name="date_text_sample">14 февраля</string>
+    <string name="date_text_sample">14 февраля 2024</string>
     <string name="time_text_sample">15:15</string>
     <string name="diastolic_pressure_text_sample">137</string>
     <string name="systolic_pressure_text_sample">71</string>
