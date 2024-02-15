@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="DateTimeText">
+        <item name="android:textSize">24sp</item>
+        <item name="android:padding">8dp</item>
+    </style>
+
+    <style name="PressureText">
+        <item name="android:textSize">36sp</item>
+        <item name="android:padding">8dp</item>
+    </style>
+
+    <style name="PulseText">
+        <item name="android:textSize">36sp</item>
+        <item name="android:padding">8dp</item>
+    </style>
+</resources>
