@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp">
+        android:padding="@dimen/constraint_layout_padding">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -20,40 +20,53 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/date_text_view"
-                style="@style/DateTimeText"
+                style="@style/DateText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/date_text_sample" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:orientation="horizontal">
 
-                <androidx.appcompat.widget.AppCompatTextView
+                <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/time_text_view"
-                    style="@style/DateTimeText"
+                    style="@style/TimeText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/time_text_sample" />
 
-                <androidx.appcompat.widget.AppCompatTextView
+                <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/diastolic_pressure_text_view"
                     style="@style/PressureText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/diastolic_pressure_text_sample" />
 
-                <androidx.appcompat.widget.AppCompatTextView
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_pressure_separator"
+                    android:layout_gravity="center_vertical"/>
+
+                <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/systolic_pressure_text_view"
                     style="@style/PressureText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/systolic_pressure_text_sample" />
 
-                <androidx.appcompat.widget.AppCompatTextView
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_pulse"
+                    android:layout_gravity="center_vertical"/>
+
+                <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/pulse_text_view"
                     style="@style/PulseText"
                     android:layout_width="wrap_content"

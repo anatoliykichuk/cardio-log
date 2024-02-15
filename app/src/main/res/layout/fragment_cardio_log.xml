@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp">
+        android:padding="@dimen/constraint_layout_padding">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/cardio_log_recycler_view"
@@ -21,7 +21,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:listitem="@layout/fragment_cardio_log"
+            tools:listitem="@layout/fragment_cardio_log_record"
             tools:itemCount="5" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
