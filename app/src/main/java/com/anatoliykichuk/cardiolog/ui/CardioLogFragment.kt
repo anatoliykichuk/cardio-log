@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.anatoliykichuk.cardiolog.databinding.FragmentCardioLogBinding
 import com.anatoliykichuk.cardiolog.domain.CardioLog
+import com.google.android.material.snackbar.Snackbar
 
 class CardioLogFragment : Fragment() {
 
@@ -42,6 +43,7 @@ class CardioLogFragment : Fragment() {
 
     private fun initView() {
         cardioLogRecyclerView = binding.cardioLogRecyclerView
+        setFabOnClickListeners()
     }
 
     private fun observeData() {
@@ -49,12 +51,25 @@ class CardioLogFragment : Fragment() {
     }
 
     private fun initData() {
+        return
         //TODO("Инициализировать список")
 
         val records = listOf<CardioLog>()
 
         cardioLogRecyclerView.adapter = CardioLogAdapter(records)
         cardioLogRecyclerView.setHasFixedSize(true)
+    }
+
+    private fun setFabOnClickListeners() {
+        binding.addRecordFab.setOnClickListener { view ->
+            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show()
+        }
+
+        binding.removeRecordFab.setOnClickListener { view ->
+            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show()
+        }
     }
 
     companion object {

@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.anatoliykichuk.cardiolog.R
 import com.anatoliykichuk.cardiolog.databinding.ActivityMainBinding
-import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,7 +16,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         addFragment()
-        setFabOnClickListeners()
     }
 
     private fun addFragment() {
@@ -25,17 +23,5 @@ class MainActivity : AppCompatActivity() {
             .beginTransaction()
             .replace(R.id.fragment_container, CardioLogFragment.newInstance())
             .commit()
-    }
-
-    private fun setFabOnClickListeners() {
-        binding.addRecordFab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
-
-        binding.removeRecordFab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
     }
 }

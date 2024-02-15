@@ -23,22 +23,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add_record_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="@dimen/fab_margin_end"
-        android:layout_marginBottom="@dimen/fab_margin_common"
-        app:srcCompat="@drawable/ic_add_record" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/remove_record_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="@dimen/fab_margin_common"
-        android:layout_marginBottom="@dimen/fab_margin_common"
-        app:srcCompat="@drawable/ic_remove_record" />
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
