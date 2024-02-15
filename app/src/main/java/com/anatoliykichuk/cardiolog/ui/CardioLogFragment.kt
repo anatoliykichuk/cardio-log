@@ -18,6 +18,7 @@ class CardioLogFragment : Fragment() {
         get() = _binding!!
 
     private lateinit var cardioLogRecyclerView: RecyclerView
+    private lateinit var records: MutableList<CardioLog>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,10 +52,9 @@ class CardioLogFragment : Fragment() {
     }
 
     private fun initData() {
-        return
         //TODO("Инициализировать список")
 
-        val records = listOf<CardioLog>()
+        records = mutableListOf()
 
         cardioLogRecyclerView.adapter = CardioLogAdapter(records)
         cardioLogRecyclerView.setHasFixedSize(true)
