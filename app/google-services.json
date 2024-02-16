@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "172215531739",
+    "project_id": "cardio-log-af61c",
+    "storage_bucket": "cardio-log-af61c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:172215531739:android:2fb577c238038fce82f4fe",
+        "android_client_info": {
+          "package_name": "com.anatoliykichuk.cardiolog"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCoBdBxxB8Oz2CU4SERtI8tIPCVpNHtOkA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

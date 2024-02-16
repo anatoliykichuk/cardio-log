@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.anatoliykichuk.cardiolog.R
 import com.anatoliykichuk.cardiolog.databinding.ActivityMainBinding
+import com.anatoliykichuk.cardiolog.ui.pages.records.CardioLogFragment
 
 class MainActivity : AppCompatActivity() {
 

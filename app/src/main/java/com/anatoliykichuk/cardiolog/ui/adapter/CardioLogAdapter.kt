@@ -1,10 +1,11 @@
-package com.anatoliykichuk.cardiolog.ui
+package com.anatoliykichuk.cardiolog.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.anatoliykichuk.cardiolog.databinding.FragmentCardioLogRecordBinding
 import com.anatoliykichuk.cardiolog.domain.CardioLog
+import com.anatoliykichuk.cardiolog.ui.Utils
 
 class CardioLogAdapter(
     private val records: List<CardioLog>

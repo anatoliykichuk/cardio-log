@@ -1,4 +1,4 @@
-package com.anatoliykichuk.cardiolog.ui
+package com.anatoliykichuk.cardiolog.ui.pages.records
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.anatoliykichuk.cardiolog.databinding.FragmentCardioLogBinding
 import com.anatoliykichuk.cardiolog.domain.CardioLog
+import com.anatoliykichuk.cardiolog.ui.adapter.CardioLogAdapter
 import com.google.android.material.snackbar.Snackbar
 
 class CardioLogFragment : Fragment() {
