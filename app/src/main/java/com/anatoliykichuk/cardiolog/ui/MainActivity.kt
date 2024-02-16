@@ -15,10 +15,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        addFragment()
-    }
-
-    private fun addFragment() {
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragment_container, CardioLogFragment.newInstance())
