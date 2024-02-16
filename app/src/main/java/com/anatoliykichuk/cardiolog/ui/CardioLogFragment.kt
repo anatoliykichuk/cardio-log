@@ -17,8 +17,9 @@ class CardioLogFragment : Fragment() {
     private val binding
         get() = _binding!!
 
-    private lateinit var cardioLogRecyclerView: RecyclerView
     private lateinit var records: MutableList<CardioLog>
+    private lateinit var adapter: CardioLogAdapter
+    private lateinit var cardioLogRecyclerView: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,7 +44,10 @@ class CardioLogFragment : Fragment() {
     }
 
     private fun initView() {
+        records = mutableListOf()
+        adapter = CardioLogAdapter(records)
         cardioLogRecyclerView = binding.cardioLogRecyclerView
+
         setFabOnClickListeners()
     }
 
@@ -52,18 +56,15 @@ class CardioLogFragment : Fragment() {
     }
 
     private fun initData() {
-        //TODO("Инициализировать список")
-
-        records = mutableListOf()
-
-        cardioLogRecyclerView.adapter = CardioLogAdapter(records)
+        cardioLogRecyclerView.adapter = adapter
         cardioLogRecyclerView.setHasFixedSize(true)
     }
 
     private fun setFabOnClickListeners() {
         binding.addRecordFab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+            records.add(CardioLog(120, 80, 65))
+            adapter.notifyItemInserted(records.size)
+            cardioLogRecyclerView.scrollToPosition(records.size)
         }
 
         binding.removeRecordFab.setOnClickListener { view ->
