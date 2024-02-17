@@ -1,6 +1,6 @@
 package com.anatoliykichuk.cardiolog.data
 
-import java.sql.Timestamp
+import com.google.firebase.Timestamp
 
 data class CardioLogDto(
     val diastolicPressure: Int,

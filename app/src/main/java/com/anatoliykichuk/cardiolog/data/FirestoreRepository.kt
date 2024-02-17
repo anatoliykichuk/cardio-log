@@ -13,7 +13,7 @@ class FirestoreRepository : IRepository {
             .get()
             .addOnSuccessListener {
                 val dtoRecords: List<CardioLogDto> = it.toObjects(CardioLogDto::class.java)
-                records = CardioLogConverter.fromDtoRecords(dtoRecords)
+                records = DataConverter.getFromDtoRecords(dtoRecords)
             }
             .addOnFailureListener {
                 return@addOnFailureListener
@@ -26,7 +26,7 @@ class FirestoreRepository : IRepository {
 
         val record = HashMap<String, Any>()
         record["id"] = cardioLog.id.toString()
-        record["date"] = "" // TODO("from LocalDateTyme to Timestamp")
+        record["date"] = DataConverter.getFromLocalDateDateToTimestamp(cardioLog.date)
         record["diastolicPressure"] = cardioLog.diastolicPressure
         record["systolicPressure"] = cardioLog.systolicPressure
         record["pulse"] = cardioLog.pulse

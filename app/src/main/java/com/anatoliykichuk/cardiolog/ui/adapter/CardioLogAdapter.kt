@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.anatoliykichuk.cardiolog.databinding.FragmentCardioLogRecordBinding
 import com.anatoliykichuk.cardiolog.domain.CardioLog
-import com.anatoliykichuk.cardiolog.ui.Utils
 
 class CardioLogAdapter(
     private val records: List<CardioLog>
@@ -16,8 +15,8 @@ class CardioLogAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(cardioLog: CardioLog) {
-            binding.dateTextView.setText(Utils.getDateFormatted(cardioLog.date))
-            binding.timeTextView.setText(Utils.getTimeFormatted(cardioLog.date))
+            binding.dateTextView.setText(DateTimeFormatter.getDateFormatted(cardioLog.date))
+            binding.timeTextView.setText(DateTimeFormatter.getTimeFormatted(cardioLog.date))
             binding.diastolicPressureTextView.setText(cardioLog.diastolicPressure.toString())
             binding.systolicPressureTextView.setText(cardioLog.systolicPressure.toString())
             binding.pulseTextView.setText(cardioLog.pulse.toString())

@@ -1,8 +1,8 @@
-package com.anatoliykichuk.cardiolog.ui
+package com.anatoliykichuk.cardiolog.ui.adapter
 
 import java.time.LocalDateTime
 
-object Utils {
+object DateTimeFormatter {
 
     fun getDateFormatted(date: LocalDateTime): String {
         return "${date.dayOfMonth} ${date.month.name.lowercase()} ${date.year}"

@@ -8,7 +8,7 @@ data class CardioLog(
     val systolicPressure: Int = systolicPressureByDefault,
     val pulse: Int = pulseByDefault,
     val date: LocalDateTime = LocalDateTime.now(),
-    val id: UUID = UUID.randomUUID()
+    val id: String = UUID.randomUUID().toString()
 ) {
     companion object {
         private const val diastolicPressureByDefault = 120
