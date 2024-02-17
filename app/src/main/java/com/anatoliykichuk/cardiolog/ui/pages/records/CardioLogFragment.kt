@@ -5,9 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.anatoliykichuk.cardiolog.databinding.FragmentCardioLogBinding
 import com.anatoliykichuk.cardiolog.domain.CardioLog
+import com.anatoliykichuk.cardiolog.ui.AppState
 import com.anatoliykichuk.cardiolog.ui.adapter.CardioLogAdapter
 import com.google.android.material.snackbar.Snackbar
 
@@ -17,6 +19,8 @@ class CardioLogFragment : Fragment() {
 
     private val binding
         get() = _binding!!
+
+    private lateinit var viewModel: CardioLogViewModel
 
     private lateinit var records: MutableList<CardioLog>
     private lateinit var adapter: CardioLogAdapter
@@ -34,6 +38,8 @@ class CardioLogFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel = ViewModelProvider(this).get(CardioLogViewModel::class.java)
+
         initView()
         observeData()
         initData()
@@ -45,27 +51,45 @@ class CardioLogFragment : Fragment() {
     }
 
     private fun initView() {
-        records = mutableListOf()
-        adapter = CardioLogAdapter(records)
         cardioLogRecyclerView = binding.cardioLogRecyclerView
-
         setFabOnClickListeners()
     }
 
     private fun observeData() {
+        viewModel.getLiveData().observe(viewLifecycleOwner) {
+            when(it) {
+                is AppState.Success -> {
+                    records = it.records
+                    adapter = CardioLogAdapter(records)
 
+                    cardioLogRecyclerView.setHasFixedSize(true)
+                    cardioLogRecyclerView.adapter = adapter
+                }
+
+                is AppState.Error -> {
+
+                }
+
+                is AppState.Loading -> {
+
+                }
+            }
+        }
     }
 
     private fun initData() {
-        cardioLogRecyclerView.adapter = adapter
-        cardioLogRecyclerView.setHasFixedSize(true)
+        viewModel.getRecords()
     }
 
     private fun setFabOnClickListeners() {
         binding.addRecordFab.setOnClickListener { view ->
-            records.add(CardioLog(120, 80, 65))
+            val record = CardioLog()
+
+            records.add(record)
             adapter.notifyItemInserted(records.size)
             cardioLogRecyclerView.scrollToPosition(records.size)
+
+            //viewModel.addRecord(record)
         }
 
         binding.removeRecordFab.setOnClickListener { view ->
