@@ -22,6 +22,20 @@ class FirestoreRepository : IRepository {
 
     override fun addRecord(cardioLog: CardioLog): MutableList<CardioLog> {
         firestoreClient.collection(COLLECTION_PATH)
+            .add(
+                DataConverter.getRecordsFromCardioLog(cardioLog)
+            )
+            .addOnSuccessListener {
+                records = getRecords()
+            }
+            .addOnFailureListener {
+                return@addOnFailureListener
+            }
+        return records
+    }
+
+    override fun updateRecord(cardioLog: CardioLog): MutableList<CardioLog> {
+        firestoreClient.collection(COLLECTION_PATH)
             .document(cardioLog.id)
             .set(
                 DataConverter.getRecordsFromCardioLog(cardioLog)
@@ -35,12 +49,17 @@ class FirestoreRepository : IRepository {
         return records
     }
 
-    override fun updateRecord(cardioLog: CardioLog): MutableList<CardioLog> {
-        TODO("Not yet implemented")
-    }
-
     override fun removeRecord(cardioLog: CardioLog): MutableList<CardioLog> {
-        TODO("Not yet implemented")
+        firestoreClient.collection(COLLECTION_PATH)
+            .document(cardioLog.id)
+            .delete()
+            .addOnSuccessListener {
+                records = getRecords()
+            }
+            .addOnFailureListener {
+                return@addOnFailureListener
+            }
+        return records
     }
 
     companion object {
