@@ -21,7 +21,9 @@ class CardioLogViewModel : ViewModel() {
         liveData.postValue(AppState.Loading)
 
         CoroutineScope(Dispatchers.Main + SupervisorJob()).launch {
-            AppState.Success(FirestoreRepository().getRecords())
+            liveData.postValue(
+                AppState.Success(FirestoreRepository().getRecords())
+            )
         }
     }
 
@@ -29,7 +31,9 @@ class CardioLogViewModel : ViewModel() {
         liveData.postValue(AppState.Loading)
 
         CoroutineScope(Dispatchers.Main + SupervisorJob()).launch {
-            AppState.Success(FirestoreRepository().addRecord(cardioLog))
+            liveData.postValue(
+                AppState.Success(FirestoreRepository().addRecord(cardioLog))
+            )
         }
     }
 }

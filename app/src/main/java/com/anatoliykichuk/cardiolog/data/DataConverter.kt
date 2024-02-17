@@ -9,21 +9,32 @@ import java.util.Date
 
 object DataConverter {
 
-    fun fromDto(cardioLogDto: CardioLogDto): CardioLog {
+    fun getRecordsFromCardioLog(cardioLog: CardioLog): HashMap<String, Any> {
+        val records = HashMap<String, Any>()
+        records["id"] = cardioLog.id
+        records["date"] = DataConverter.getFromLocalDateDateToTimestamp(cardioLog.date)
+        records["diastolicPressure"] = cardioLog.diastolicPressure
+        records["systolicPressure"] = cardioLog.systolicPressure
+        records["pulse"] = cardioLog.pulse
+
+        return records
+    }
+
+    fun getCardioLogFromDto(cardioLogDto: CardioLogDto): CardioLog {
         return CardioLog(
             diastolicPressure = cardioLogDto.diastolicPressure,
             systolicPressure = cardioLogDto.systolicPressure,
             pulse = cardioLogDto.pulse,
-            date = fromTimestampToLocalDateDate(cardioLogDto.date),
+            date = getFromTimestampToLocalDateDate(cardioLogDto.date),
             id = cardioLogDto.id
         )
     }
 
-    fun getFromDtoRecords(cardioLogDtoRecords: List<CardioLogDto>): MutableList<CardioLog> {
+    fun getCardioLogRecordsFromDto(cardioLogDtoRecords: List<CardioLogDto>): MutableList<CardioLog> {
         val cardioLogRecords: MutableList<CardioLog> = mutableListOf()
 
         cardioLogDtoRecords.forEach {
-            cardioLogRecords.add(fromDto(it))
+            cardioLogRecords.add(getCardioLogFromDto(it))
         }
         return cardioLogRecords
     }
@@ -34,7 +45,7 @@ object DataConverter {
         )
     }
 
-    fun fromTimestampToLocalDateDate(timestamp: Timestamp): LocalDateTime {
+    fun getFromTimestampToLocalDateDate(timestamp: Timestamp): LocalDateTime {
         return LocalDateTime.ofInstant(
             timestamp.toDate().toInstant(),
             ZoneId.systemDefault()

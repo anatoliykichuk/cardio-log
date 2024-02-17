@@ -5,15 +5,14 @@ import com.anatoliykichuk.cardiolog.domain.CardioLog
 class FirestoreRepository : IRepository {
 
     private val firestoreClient = FirestoreClient.getClient()
+    private var records = mutableListOf<CardioLog>()
 
     override fun getRecords(): MutableList<CardioLog> {
-        var records = mutableListOf <CardioLog>()
-
         firestoreClient.collection(COLLECTION_PATH)
             .get()
             .addOnSuccessListener {
                 val dtoRecords: List<CardioLogDto> = it.toObjects(CardioLogDto::class.java)
-                records = DataConverter.getFromDtoRecords(dtoRecords)
+                records = DataConverter.getCardioLogRecordsFromDto(dtoRecords)
             }
             .addOnFailureListener {
                 return@addOnFailureListener
@@ -22,17 +21,11 @@ class FirestoreRepository : IRepository {
     }
 
     override fun addRecord(cardioLog: CardioLog): MutableList<CardioLog> {
-        var records = mutableListOf <CardioLog>()
-
-        val record = HashMap<String, Any>()
-        record["id"] = cardioLog.id.toString()
-        record["date"] = DataConverter.getFromLocalDateDateToTimestamp(cardioLog.date)
-        record["diastolicPressure"] = cardioLog.diastolicPressure
-        record["systolicPressure"] = cardioLog.systolicPressure
-        record["pulse"] = cardioLog.pulse
-
         firestoreClient.collection(COLLECTION_PATH)
-            .add(record)
+            .document(cardioLog.id)
+            .set(
+                DataConverter.getRecordsFromCardioLog(cardioLog)
+            )
             .addOnSuccessListener {
                 records = getRecords()
             }

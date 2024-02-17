@@ -22,8 +22,9 @@ class CardioLogFragment : Fragment() {
 
     private lateinit var viewModel: CardioLogViewModel
 
-    private lateinit var records: MutableList<CardioLog>
-    private lateinit var adapter: CardioLogAdapter
+    private var records: MutableList<CardioLog> = mutableListOf()
+    private var adapter: CardioLogAdapter = CardioLogAdapter(records)
+
     private lateinit var cardioLogRecyclerView: RecyclerView
 
     override fun onCreateView(
@@ -57,7 +58,7 @@ class CardioLogFragment : Fragment() {
 
     private fun observeData() {
         viewModel.getLiveData().observe(viewLifecycleOwner) {
-            when(it) {
+            when (it) {
                 is AppState.Success -> {
                     records = it.records
                     adapter = CardioLogAdapter(records)
@@ -89,7 +90,7 @@ class CardioLogFragment : Fragment() {
             adapter.notifyItemInserted(records.size)
             cardioLogRecyclerView.scrollToPosition(records.size)
 
-            //viewModel.addRecord(record)
+            viewModel.addRecord(record)
         }
 
         binding.removeRecordFab.setOnClickListener { view ->
