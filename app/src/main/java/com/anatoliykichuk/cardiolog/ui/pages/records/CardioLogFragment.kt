@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.anatoliykichuk.cardiolog.databinding.FragmentCardioLogBinding
 import com.anatoliykichuk.cardiolog.domain.CardioLog
 import com.anatoliykichuk.cardiolog.ui.AppState
 import com.anatoliykichuk.cardiolog.ui.adapter.CardioLogAdapter
-import com.google.android.material.snackbar.Snackbar
 
 class CardioLogFragment : Fragment() {
 
@@ -94,8 +94,17 @@ class CardioLogFragment : Fragment() {
         }
 
         binding.removeRecordFab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+            val layoutManager = cardioLogRecyclerView.layoutManager as LinearLayoutManager
+            val currentPosition = layoutManager?.findFirstVisibleItemPosition()
+
+            if (currentPosition == RecyclerView.NO_POSITION) {
+                return@setOnClickListener
+            }
+
+            val record = records[currentPosition!!]
+
+            records.remove(record)
+            viewModel.removeRecord(record)
         }
     }
 

@@ -27,12 +27,32 @@ class CardioLogViewModel : ViewModel() {
         }
     }
 
+    fun updateRecord(cardioLog: CardioLog) {
+        liveData.postValue(AppState.Loading)
+
+        CoroutineScope(Dispatchers.Main + SupervisorJob()).launch {
+            liveData.postValue(
+                AppState.Success(FirestoreRepository().updateRecord(cardioLog))
+            )
+        }
+    }
+
     fun addRecord(cardioLog: CardioLog) {
         liveData.postValue(AppState.Loading)
 
         CoroutineScope(Dispatchers.Main + SupervisorJob()).launch {
             liveData.postValue(
                 AppState.Success(FirestoreRepository().addRecord(cardioLog))
+            )
+        }
+    }
+
+    fun removeRecord(cardioLog: CardioLog) {
+        liveData.postValue(AppState.Loading)
+
+        CoroutineScope(Dispatchers.Main + SupervisorJob()).launch {
+            liveData.postValue(
+                AppState.Success(FirestoreRepository().removeRecord(cardioLog))
             )
         }
     }
