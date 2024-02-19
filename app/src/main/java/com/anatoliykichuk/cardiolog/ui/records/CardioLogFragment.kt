@@ -13,8 +13,9 @@ import com.anatoliykichuk.cardiolog.databinding.FragmentCardioLogBinding
 import com.anatoliykichuk.cardiolog.domain.CardioLog
 import com.anatoliykichuk.cardiolog.ui.AppState
 import com.anatoliykichuk.cardiolog.ui.adapter.CardioLogAdapter
+import com.anatoliykichuk.cardiolog.ui.adapter.CardioLogOnRecordDataChangeListener
 
-class CardioLogFragment : Fragment() {
+class CardioLogFragment : Fragment(), CardioLogOnRecordDataChangeListener {
 
     private var _binding: FragmentCardioLogBinding? = null
 
@@ -24,7 +25,7 @@ class CardioLogFragment : Fragment() {
     private lateinit var viewModel: CardioLogViewModel
 
     private var records: MutableList<CardioLog> = mutableListOf()
-    private var adapter: CardioLogAdapter = CardioLogAdapter(records)
+    private var adapter: CardioLogAdapter = CardioLogAdapter(records, this)
 
     private lateinit var cardioLogRecyclerView: RecyclerView
 
@@ -62,7 +63,7 @@ class CardioLogFragment : Fragment() {
             when (it) {
                 is AppState.Success -> {
                     records = it.records
-                    adapter = CardioLogAdapter(records)
+                    adapter = CardioLogAdapter(records, this)
 
                     cardioLogRecyclerView.setHasFixedSize(true)
                     cardioLogRecyclerView.adapter = adapter
@@ -112,6 +113,10 @@ class CardioLogFragment : Fragment() {
             adapter.notifyItemInserted(records.size)
             cardioLogRecyclerView.scrollToPosition(records.size)
         }
+    }
+
+    override fun onChanged(cardioLog: CardioLog) {
+        viewModel.updateRecord(cardioLog)
     }
 
     companion object {

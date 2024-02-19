@@ -22,7 +22,7 @@ class FirestoreRepository : IRepository {
     suspend override fun updateRecord(cardioLog: CardioLog): MutableList<CardioLog> {
         firestoreClient.collection(COLLECTION_PATH)
             .document(cardioLog.id)
-            .set(DataConverter.getFirestoreDocumentFromCardioLog(cardioLog))
+            .update(DataConverter.getFirestoreDocumentFromCardioLog(cardioLog))
             .await()
         return getRecords()
     }

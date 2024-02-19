@@ -4,9 +4,9 @@ import java.time.LocalDateTime
 import java.util.UUID
 
 data class CardioLog(
-    val diastolicPressure: Int = diastolicPressureByDefault,
-    val systolicPressure: Int = systolicPressureByDefault,
-    val pulse: Int = pulseByDefault,
+    var diastolicPressure: Int = diastolicPressureByDefault,
+    var systolicPressure: Int = systolicPressureByDefault,
+    var pulse: Int = pulseByDefault,
     val date: LocalDateTime = LocalDateTime.now(),
     val id: String = UUID.randomUUID().toString()
 ) {
