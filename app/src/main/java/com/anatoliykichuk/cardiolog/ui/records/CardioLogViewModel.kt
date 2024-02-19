@@ -1,4 +1,4 @@
-package com.anatoliykichuk.cardiolog.ui.pages.records
+package com.anatoliykichuk.cardiolog.ui.records
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -1,4 +1,4 @@
-package com.anatoliykichuk.cardiolog.ui.pages.records
+package com.anatoliykichuk.cardiolog.ui.records
 
 import android.os.Bundle
 import android.view.LayoutInflater
