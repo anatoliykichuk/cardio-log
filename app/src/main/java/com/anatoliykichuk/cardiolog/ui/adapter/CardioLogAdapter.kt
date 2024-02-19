@@ -1,6 +1,7 @@
-package com.anatoliykichuk.cardiolog.ui
+package com.anatoliykichuk.cardiolog.ui.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.anatoliykichuk.cardiolog.databinding.FragmentCardioLogRecordBinding
@@ -15,11 +16,14 @@ class CardioLogAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(cardioLog: CardioLog) {
-            binding.dateTextView.setText(Utils.getDateFormatted(cardioLog.date))
-            binding.timeTextView.setText(Utils.getTimeFormatted(cardioLog.date))
+            binding.dateTextView.text = DateTimeFormatter.getDateFormatted(cardioLog.date)
+            binding.timeTextView.text = DateTimeFormatter.getTimeFormatted(cardioLog.date)
             binding.diastolicPressureTextView.setText(cardioLog.diastolicPressure.toString())
             binding.systolicPressureTextView.setText(cardioLog.systolicPressure.toString())
             binding.pulseTextView.setText(cardioLog.pulse.toString())
+
+            binding.idTextView.text = cardioLog.id
+            binding.idTextView.visibility = View.GONE
         }
     }
 

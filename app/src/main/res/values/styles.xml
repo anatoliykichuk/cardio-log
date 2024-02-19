@@ -12,14 +12,14 @@
     </style>
 
     <style name="PressureText">
-        <item name="android:textSize">48sp</item>
+        <item name="android:textSize">36sp</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:layout_marginStart">4dp</item>
         <item name="android:layout_marginEnd">4dp</item>
     </style>
 
     <style name="PulseText">
-        <item name="android:textSize">48sp</item>
+        <item name="android:textSize">36sp</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:layout_marginStart">4dp</item>
     </style>
