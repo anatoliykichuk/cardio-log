@@ -7,7 +7,8 @@ object FirestoreClient {
 
     fun getClient(): FirebaseFirestore {
         return FirebaseFirestore.getInstance().apply {
-            firestoreSettings = FirebaseFirestoreSettings.Builder()
+            firestoreSettings = FirebaseFirestoreSettings
+                .Builder()
                 .setPersistenceEnabled(false)
                 .build()
         }

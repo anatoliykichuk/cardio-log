@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -68,7 +69,9 @@ class CardioLogFragment : Fragment() {
                 }
 
                 is AppState.Error -> {
-
+                    Toast.makeText(
+                        activity, it.error.message.toString(), Toast.LENGTH_SHORT
+                    ).show()
                 }
 
                 is AppState.Loading -> {
@@ -87,10 +90,10 @@ class CardioLogFragment : Fragment() {
             val record = CardioLog()
 
             records.add(record)
+            viewModel.addRecord(record)
+
             adapter.notifyItemInserted(records.size)
             cardioLogRecyclerView.scrollToPosition(records.size)
-
-            viewModel.addRecord(record)
         }
 
         binding.removeRecordFab.setOnClickListener { view ->
@@ -105,6 +108,9 @@ class CardioLogFragment : Fragment() {
 
             records.remove(record)
             viewModel.removeRecord(record)
+
+            adapter.notifyItemInserted(records.size)
+            cardioLogRecyclerView.scrollToPosition(records.size)
         }
     }
 

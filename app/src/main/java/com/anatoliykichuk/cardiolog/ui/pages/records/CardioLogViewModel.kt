@@ -14,6 +14,7 @@ import kotlinx.coroutines.launch
 class CardioLogViewModel : ViewModel() {
 
     private val liveData: MutableLiveData<AppState> = MutableLiveData()
+    private val repository = FirestoreRepository()
 
     fun getLiveData(): LiveData<AppState> = liveData
 
@@ -21,9 +22,13 @@ class CardioLogViewModel : ViewModel() {
         liveData.postValue(AppState.Loading)
 
         CoroutineScope(Dispatchers.Main + SupervisorJob()).launch {
-            liveData.postValue(
-                AppState.Success(FirestoreRepository().getRecords())
-            )
+            try {
+                liveData.postValue(
+                    AppState.Success(repository.getRecords())
+                )
+            } catch (error: Throwable) {
+                liveData.postValue(AppState.Error(error))
+            }
         }
     }
 
@@ -31,9 +36,13 @@ class CardioLogViewModel : ViewModel() {
         liveData.postValue(AppState.Loading)
 
         CoroutineScope(Dispatchers.Main + SupervisorJob()).launch {
-            liveData.postValue(
-                AppState.Success(FirestoreRepository().updateRecord(cardioLog))
-            )
+            try {
+                liveData.postValue(
+                    AppState.Success(repository.updateRecord(cardioLog))
+                )
+            } catch (error: Throwable) {
+                liveData.postValue(AppState.Error(error))
+            }
         }
     }
 
@@ -41,9 +50,13 @@ class CardioLogViewModel : ViewModel() {
         liveData.postValue(AppState.Loading)
 
         CoroutineScope(Dispatchers.Main + SupervisorJob()).launch {
-            liveData.postValue(
-                AppState.Success(FirestoreRepository().addRecord(cardioLog))
-            )
+            try {
+                liveData.postValue(
+                    AppState.Success(repository.addRecord(cardioLog))
+                )
+            } catch (error: Throwable) {
+                liveData.postValue(AppState.Error(error))
+            }
         }
     }
 
@@ -51,9 +64,13 @@ class CardioLogViewModel : ViewModel() {
         liveData.postValue(AppState.Loading)
 
         CoroutineScope(Dispatchers.Main + SupervisorJob()).launch {
-            liveData.postValue(
-                AppState.Success(FirestoreRepository().removeRecord(cardioLog))
-            )
+            try {
+                liveData.postValue(
+                    AppState.Success(repository.removeRecord(cardioLog))
+                )
+            } catch (error: Throwable) {
+                liveData.postValue(AppState.Error(error))
+            }
         }
     }
 }
