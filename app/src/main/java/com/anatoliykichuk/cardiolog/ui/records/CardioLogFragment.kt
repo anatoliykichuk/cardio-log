@@ -122,12 +122,10 @@ class CardioLogFragment : Fragment(), ICardioLogOnRecordDataChangeListener {
     private fun setFabOnClickListeners() {
         binding.addRecordFab.setOnClickListener { view ->
             val record = CardioLog()
-
             records.add(record)
             viewModel.addRecord(record)
 
-            adapter.notifyItemInserted(records.size)
-            cardioLogRecyclerView.scrollToPosition(records.size)
+            adapter.notifyDataSetChanged()
         }
 
         binding.removeRecordFab.setOnClickListener { view ->
@@ -136,7 +134,6 @@ class CardioLogFragment : Fragment(), ICardioLogOnRecordDataChangeListener {
             }
 
             val record = records[currentPosition]
-
             records.remove(record)
             viewModel.removeRecord(record)
 
