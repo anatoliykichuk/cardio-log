@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.anatoliykichuk.cardiolog.data.FirestoreRepository
 import com.anatoliykichuk.cardiolog.domain.CardioLog
 import com.anatoliykichuk.cardiolog.ui.AppState
+import com.anatoliykichuk.cardiolog.ui.ResponseData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -24,7 +25,9 @@ class CardioLogViewModel : ViewModel() {
         CoroutineScope(Dispatchers.Main + SupervisorJob()).launch {
             try {
                 liveData.postValue(
-                    AppState.Success(repository.getRecords())
+                    AppState.Success(
+                        ResponseData(records = repository.getRecords())
+                    )
                 )
             } catch (error: Throwable) {
                 liveData.postValue(AppState.Error(error))
@@ -38,7 +41,9 @@ class CardioLogViewModel : ViewModel() {
         CoroutineScope(Dispatchers.Main + SupervisorJob()).launch {
             try {
                 liveData.postValue(
-                    AppState.Success(repository.updateRecord(cardioLog))
+                    AppState.Success(
+                        ResponseData(recordsAreUpdated = repository.updateRecord(cardioLog))
+                    )
                 )
             } catch (error: Throwable) {
                 liveData.postValue(AppState.Error(error))
@@ -52,7 +57,9 @@ class CardioLogViewModel : ViewModel() {
         CoroutineScope(Dispatchers.Main + SupervisorJob()).launch {
             try {
                 liveData.postValue(
-                    AppState.Success(repository.addRecord(cardioLog))
+                    AppState.Success(
+                        ResponseData(recordsAreUpdated = repository.addRecord(cardioLog))
+                    )
                 )
             } catch (error: Throwable) {
                 liveData.postValue(AppState.Error(error))
@@ -66,7 +73,9 @@ class CardioLogViewModel : ViewModel() {
         CoroutineScope(Dispatchers.Main + SupervisorJob()).launch {
             try {
                 liveData.postValue(
-                    AppState.Success(repository.removeRecord(cardioLog))
+                    AppState.Success(
+                        ResponseData(recordsAreUpdated = repository.removeRecord(cardioLog))
+                    )
                 )
             } catch (error: Throwable) {
                 liveData.postValue(AppState.Error(error))

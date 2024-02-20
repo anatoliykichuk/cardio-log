@@ -1,21 +1,22 @@
 package com.anatoliykichuk.cardiolog.ui.records
 
 import android.os.Bundle
+import android.view.GestureDetector
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.anatoliykichuk.cardiolog.databinding.FragmentCardioLogBinding
 import com.anatoliykichuk.cardiolog.domain.CardioLog
 import com.anatoliykichuk.cardiolog.ui.AppState
 import com.anatoliykichuk.cardiolog.ui.adapter.CardioLogAdapter
-import com.anatoliykichuk.cardiolog.ui.adapter.CardioLogOnRecordDataChangeListener
+import com.anatoliykichuk.cardiolog.ui.adapter.ICardioLogOnRecordDataChangeListener
 
-class CardioLogFragment : Fragment(), CardioLogOnRecordDataChangeListener {
+class CardioLogFragment : Fragment(), ICardioLogOnRecordDataChangeListener {
 
     private var _binding: FragmentCardioLogBinding? = null
 
@@ -28,6 +29,7 @@ class CardioLogFragment : Fragment(), CardioLogOnRecordDataChangeListener {
     private var adapter: CardioLogAdapter = CardioLogAdapter(records, this)
 
     private lateinit var cardioLogRecyclerView: RecyclerView
+    private var currentPosition = RecyclerView.NO_POSITION
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,6 +57,7 @@ class CardioLogFragment : Fragment(), CardioLogOnRecordDataChangeListener {
 
     private fun initView() {
         cardioLogRecyclerView = binding.cardioLogRecyclerView
+        setOnItemTouchListener()
         setFabOnClickListeners()
     }
 
@@ -62,7 +65,13 @@ class CardioLogFragment : Fragment(), CardioLogOnRecordDataChangeListener {
         viewModel.getLiveData().observe(viewLifecycleOwner) {
             when (it) {
                 is AppState.Success -> {
-                    records = it.records
+                    val responseData = it.responseData
+
+                    if (responseData.records == null) {
+                        return@observe
+                    }
+
+                    records = responseData.records
                     adapter = CardioLogAdapter(records, this)
 
                     cardioLogRecyclerView.setHasFixedSize(true)
@@ -86,6 +95,30 @@ class CardioLogFragment : Fragment(), CardioLogOnRecordDataChangeListener {
         viewModel.getRecords()
     }
 
+    private fun setOnItemTouchListener() {
+        val gestureDetector = GestureDetector(
+            activity,
+            object : GestureDetector.SimpleOnGestureListener() {
+                override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
+                    val view = cardioLogRecyclerView.findChildViewUnder(e.x, e.y)!!
+                    currentPosition = cardioLogRecyclerView.getChildAdapterPosition(view)
+
+                    return super.onSingleTapConfirmed(e)
+                }
+            }
+        )
+
+        cardioLogRecyclerView.addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {
+            override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+                return gestureDetector.onTouchEvent(e)
+            }
+
+            override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {}
+
+            override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {}
+        })
+    }
+
     private fun setFabOnClickListeners() {
         binding.addRecordFab.setOnClickListener { view ->
             val record = CardioLog()
@@ -98,20 +131,16 @@ class CardioLogFragment : Fragment(), CardioLogOnRecordDataChangeListener {
         }
 
         binding.removeRecordFab.setOnClickListener { view ->
-            val layoutManager = cardioLogRecyclerView.layoutManager as LinearLayoutManager
-            val currentPosition = layoutManager?.findFirstVisibleItemPosition()
-
             if (currentPosition == RecyclerView.NO_POSITION) {
                 return@setOnClickListener
             }
 
-            val record = records[currentPosition!!]
+            val record = records[currentPosition]
 
             records.remove(record)
             viewModel.removeRecord(record)
 
-            adapter.notifyItemInserted(records.size)
-            cardioLogRecyclerView.scrollToPosition(records.size)
+            adapter.notifyDataSetChanged()
         }
     }
 

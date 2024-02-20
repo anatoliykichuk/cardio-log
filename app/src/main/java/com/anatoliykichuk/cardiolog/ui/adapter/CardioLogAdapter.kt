@@ -11,7 +11,7 @@ import com.anatoliykichuk.cardiolog.domain.CardioLog
 
 class CardioLogAdapter(
     private val records: List<CardioLog>,
-    private val listener: CardioLogOnRecordDataChangeListener
+    private val listener: ICardioLogOnRecordDataChangeListener
 ) : RecyclerView.Adapter<CardioLogAdapter.CardioLogViewHolder>() {
 
     class CardioLogViewHolder(
