@@ -72,6 +72,8 @@ class CardioLogFragment : Fragment(), ICardioLogOnRecordDataChangeListener {
                     }
 
                     records = responseData.records
+                    records.sortBy { it.date }
+
                     adapter = CardioLogAdapter(records, this)
 
                     cardioLogRecyclerView.setHasFixedSize(true)
