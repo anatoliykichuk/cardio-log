@@ -12,9 +12,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.anatoliykichuk.cardiolog.databinding.FragmentCardioLogBinding
 import com.anatoliykichuk.cardiolog.domain.CardioLog
-import com.anatoliykichuk.cardiolog.ui.AppState
+import com.anatoliykichuk.cardiolog.ui.state.AppState
 import com.anatoliykichuk.cardiolog.ui.adapter.CardioLogAdapter
 import com.anatoliykichuk.cardiolog.ui.adapter.ICardioLogOnRecordDataChangeListener
+import com.anatoliykichuk.cardiolog.ui.state.CardioLogEventType
 
 class CardioLogFragment : Fragment(), ICardioLogOnRecordDataChangeListener {
 
@@ -67,13 +68,19 @@ class CardioLogFragment : Fragment(), ICardioLogOnRecordDataChangeListener {
                 is AppState.Success -> {
                     val responseData = it.responseData
 
-                    if (responseData.records == null) {
+                    if (responseData.records != null) {
+                        records = responseData.records
+                    } else if (responseData.record != null) {
+                        if (responseData.eventType == CardioLogEventType.REMOVING) {
+                            if (records.indexOf(responseData.record) > 0) {
+                                records.remove(responseData.record)
+                            }
+                        }
+                    } else {
                         return@observe
                     }
 
-                    records = responseData.records
                     records.sortBy { it.date }
-
                     adapter = CardioLogAdapter(records, this)
 
                     cardioLogRecyclerView.setHasFixedSize(true)
@@ -124,10 +131,8 @@ class CardioLogFragment : Fragment(), ICardioLogOnRecordDataChangeListener {
     private fun setFabOnClickListeners() {
         binding.addRecordFab.setOnClickListener { view ->
             val record = CardioLog()
-            records.add(record)
             viewModel.addRecord(record)
-
-            adapter.notifyDataSetChanged()
+            //records.add(record)
         }
 
         binding.removeRecordFab.setOnClickListener { view ->
@@ -136,10 +141,8 @@ class CardioLogFragment : Fragment(), ICardioLogOnRecordDataChangeListener {
             }
 
             val record = records[currentPosition]
-            records.remove(record)
             viewModel.removeRecord(record)
-
-            adapter.notifyDataSetChanged()
+            //records.remove(record)
         }
     }
 

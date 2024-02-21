@@ -1,8 +1,11 @@
-package com.anatoliykichuk.cardiolog.ui
+package com.anatoliykichuk.cardiolog.ui.state
 
 import com.anatoliykichuk.cardiolog.domain.CardioLog
 
 data class ResponseData(
     val records: MutableList<CardioLog>? = null,
-    val recordsAreUpdated: Boolean = true
+    val record: CardioLog? = null,
+    val eventType: CardioLogEventType? = null
 )
+
+

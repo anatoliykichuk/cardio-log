@@ -5,8 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.anatoliykichuk.cardiolog.data.FirestoreRepository
 import com.anatoliykichuk.cardiolog.domain.CardioLog
-import com.anatoliykichuk.cardiolog.ui.AppState
-import com.anatoliykichuk.cardiolog.ui.ResponseData
+import com.anatoliykichuk.cardiolog.ui.state.AppState
+import com.anatoliykichuk.cardiolog.ui.state.CardioLogEventType
+import com.anatoliykichuk.cardiolog.ui.state.ResponseData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -42,7 +43,9 @@ class CardioLogViewModel : ViewModel() {
             try {
                 liveData.postValue(
                     AppState.Success(
-                        ResponseData(recordsAreUpdated = repository.updateRecord(cardioLog))
+                        ResponseData(
+                            record = repository.updateRecord(cardioLog),
+                            eventType = CardioLogEventType.UPDATING)
                     )
                 )
             } catch (error: Throwable) {
@@ -58,7 +61,9 @@ class CardioLogViewModel : ViewModel() {
             try {
                 liveData.postValue(
                     AppState.Success(
-                        ResponseData(recordsAreUpdated = repository.addRecord(cardioLog))
+                        ResponseData(
+                            record = repository.addRecord(cardioLog),
+                            eventType = CardioLogEventType.ADDING)
                     )
                 )
             } catch (error: Throwable) {
@@ -74,7 +79,10 @@ class CardioLogViewModel : ViewModel() {
             try {
                 liveData.postValue(
                     AppState.Success(
-                        ResponseData(recordsAreUpdated = repository.removeRecord(cardioLog))
+                        ResponseData(
+                            record = repository.removeRecord(cardioLog),
+                            eventType = CardioLogEventType.REMOVING
+                        )
                     )
                 )
             } catch (error: Throwable) {

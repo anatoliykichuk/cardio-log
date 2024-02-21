@@ -1,4 +1,4 @@
-package com.anatoliykichuk.cardiolog.ui
+package com.anatoliykichuk.cardiolog.ui.state
 
 sealed class AppState {
     data class Success(val responseData: ResponseData) : AppState()

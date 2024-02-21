@@ -12,27 +12,27 @@ class FirestoreRepository : IRepository {
         return DataConverter.getCardioLogRecordsFromFirestoreDocuments(querySnapshot.documents)
     }
 
-    suspend override fun addRecord(cardioLog: CardioLog): Boolean {
+    suspend override fun addRecord(cardioLog: CardioLog): CardioLog {
         firestoreClient.collection(COLLECTION_PATH)
             .add(DataConverter.getFirestoreDocumentFromCardioLog(cardioLog))
             .await()
-        return true
+        return cardioLog
     }
 
-    suspend override fun updateRecord(cardioLog: CardioLog): Boolean {
+    suspend override fun updateRecord(cardioLog: CardioLog): CardioLog {
         firestoreClient.collection(COLLECTION_PATH)
             .document(cardioLog.id)
             .update(DataConverter.getFirestoreDocumentFromCardioLog(cardioLog))
             .await()
-        return true
+        return cardioLog
     }
 
-    suspend override fun removeRecord(cardioLog: CardioLog): Boolean {
+    suspend override fun removeRecord(cardioLog: CardioLog): CardioLog {
         firestoreClient.collection(COLLECTION_PATH)
             .document(cardioLog.id)
             .delete()
             .await()
-        return true
+        return cardioLog
     }
 
     companion object {
