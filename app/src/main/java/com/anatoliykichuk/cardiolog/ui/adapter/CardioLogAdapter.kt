@@ -10,7 +10,7 @@ import com.anatoliykichuk.cardiolog.databinding.FragmentCardioLogRecordBinding
 import com.anatoliykichuk.cardiolog.domain.CardioLog
 
 class CardioLogAdapter(
-    private val records: List<CardioLog>,
+    private val records: MutableList<CardioLog>,
     private val listener: ICardioLogOnRecordDataChangeListener
 ) : RecyclerView.Adapter<CardioLogAdapter.CardioLogViewHolder>() {
 
